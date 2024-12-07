@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -23,6 +24,9 @@ class FormUpdateProfile extends StatelessWidget {
           children: [
             // Nama
             TextFormField(
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(RegExp(r'[^\x00-\x7F]')),
+              ],
               keyboardType: TextInputType.text,
               onTapOutside: (value) => FocusScope.of(context).unfocus(),
               validator: (value) =>
@@ -36,6 +40,9 @@ class FormUpdateProfile extends StatelessWidget {
             ),
             // Email
             TextFormField(
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(RegExp(r'[^\x00-\x7F]')),
+              ],
               keyboardType: TextInputType.emailAddress,
               onTapOutside: (value) => FocusScope.of(context).unfocus(),
               validator: (value) => CustomValidator.validateEmail(value),
@@ -49,6 +56,9 @@ class FormUpdateProfile extends StatelessWidget {
             ),
             // Telphone
             TextFormField(
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(RegExp(r'[^\x00-\x7F]')),
+              ],
               keyboardType: TextInputType.text,
               onTapOutside: (value) => FocusScope.of(context).unfocus(),
               controller: profileController.telp.value,
@@ -60,6 +70,9 @@ class FormUpdateProfile extends StatelessWidget {
             ),
             // Address
             TextFormField(
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(RegExp(r'[^\x00-\x7F]')),
+              ],
               keyboardType: TextInputType.text,
               onTapOutside: (value) => FocusScope.of(context).unfocus(),
               controller: profileController.address.value,

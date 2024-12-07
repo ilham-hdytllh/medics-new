@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:medics/core/constants/colors.dart';
 import 'package:medics/core/utils/validators/validation.dart';
@@ -37,6 +38,10 @@ class ChooseFaseScreen extends StatelessWidget {
                       child: Text('Nama (Inisial)'),
                     ),
                     TextFormField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.deny(
+                            RegExp(r'[^\x00-\x7F]')),
+                      ],
                       keyboardType: TextInputType.text,
                       controller: controller.nameController.value,
                       validator: (value) =>
@@ -51,6 +56,10 @@ class ChooseFaseScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextFormField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.deny(
+                                  RegExp(r'[^\x00-\x7F]')),
+                            ],
                             controller: controller.placeController.value,
                             validator: (value) =>
                                 CustomValidator.validateEmptyText(
@@ -66,6 +75,10 @@ class ChooseFaseScreen extends StatelessWidget {
                         Obx(
                           () => Expanded(
                             child: TextFormField(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.deny(
+                                    RegExp(r'[^\x00-\x7F]')),
+                              ],
                               keyboardType: TextInputType.none,
                               controller: controller.dateController.value,
                               validator: (value) =>
@@ -84,6 +97,10 @@ class ChooseFaseScreen extends StatelessWidget {
                       child: Text('Alamat Tempat Tinggal'),
                     ),
                     TextFormField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.deny(
+                            RegExp(r'[^\x00-\x7F]')),
+                      ],
                       keyboardType: TextInputType.text,
                       controller: controller.addressController.value,
                       validator: (value) =>
@@ -97,6 +114,10 @@ class ChooseFaseScreen extends StatelessWidget {
                       child: Text('Usia'),
                     ),
                     TextFormField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.deny(
+                            RegExp(r'[^\x00-\x7F]')),
+                      ],
                       keyboardType: TextInputType.number,
                       controller: controller.ageController.value,
                       validator: (value) =>
@@ -158,6 +179,10 @@ class ChooseFaseScreen extends StatelessWidget {
                     Obx(
                       () => controller.isCustomJob.value
                           ? TextFormField(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.deny(
+                                    RegExp(r'[^\x00-\x7F]')),
+                              ],
                               onTapOutside: (value) =>
                                   FocusScope.of(context).unfocus(),
                               validator: (value) =>
@@ -226,7 +251,7 @@ class ChooseFaseScreen extends StatelessWidget {
                       child: Text('Lokasi'),
                     ),
                     Obx(
-                          () => DropdownButtonFormField(
+                      () => DropdownButtonFormField(
                         dropdownColor: CustomColors.white,
                         items: controller.location
                             .map<DropdownMenuItem<String>>((String value) {

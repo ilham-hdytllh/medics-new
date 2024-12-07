@@ -3,7 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:medics/presentation/getx/auth/forgot_password_controller.dart';
-
+import 'package:flutter/services.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/sizes.dart';
 import '../../../core/utils/validators/validation.dart';
@@ -44,6 +44,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                   onTapOutside: (value) => FocusScope.of(context).unfocus(),
                   validator: (value) => CustomValidator.validateEmail(value),
                   controller: forgotPasswordController.email.value,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'[^\x00-\x7F]')),
+                  ],
                   decoration: const InputDecoration(
                       prefixIcon: Icon(Iconsax.direct_right),
                       labelText: "Email"),

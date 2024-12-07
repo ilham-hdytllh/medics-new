@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:medics/core/utils/validators/validation.dart';
@@ -22,6 +23,9 @@ class FormUpdatePassword extends StatelessWidget {
           children: [
             // Password Old
             Obx(() => TextFormField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'[^\x00-\x7F]')),
+                  ],
                   keyboardType: TextInputType.text,
                   onTapOutside: (value) => FocusScope.of(context).unfocus(),
                   validator: (value) => CustomValidator.validatePassword(value),
@@ -44,6 +48,9 @@ class FormUpdatePassword extends StatelessWidget {
             ),
             // Password New
             Obx(() => TextFormField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'[^\x00-\x7F]')),
+                  ],
                   keyboardType: TextInputType.text,
                   onTapOutside: (value) => FocusScope.of(context).unfocus(),
                   validator: (value) => CustomValidator.validatePassword(value),

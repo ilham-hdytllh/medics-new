@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:medics/core/constants/colors.dart';
 import 'package:medics/presentation/getx/profile/complete_biodata.dart';
@@ -36,6 +37,10 @@ class CompleteBiodataUpdate extends StatelessWidget {
                       child: Text('Nama (Inisial)'),
                     ),
                     TextFormField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.deny(
+                            RegExp(r'[^\x00-\x7F]')),
+                      ],
                       keyboardType: TextInputType.text,
                       controller: controller.nameController.value,
                       onTapOutside: (value) => FocusScope.of(context).unfocus(),
@@ -48,6 +53,10 @@ class CompleteBiodataUpdate extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextFormField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.deny(
+                                  RegExp(r'[^\x00-\x7F]')),
+                            ],
                             controller: controller.placeController.value,
                             keyboardType: TextInputType.text,
                             onTapOutside: (value) =>
@@ -60,6 +69,10 @@ class CompleteBiodataUpdate extends StatelessWidget {
                         Obx(
                           () => Expanded(
                             child: TextFormField(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.deny(
+                                    RegExp(r'[^\x00-\x7F]')),
+                              ],
                               keyboardType: TextInputType.none,
                               controller: controller.dateController.value,
                               onTap: () => controller.chooseDate(),
@@ -76,6 +89,10 @@ class CompleteBiodataUpdate extends StatelessWidget {
                     ),
                     TextFormField(
                       keyboardType: TextInputType.text,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.deny(
+                            RegExp(r'[^\x00-\x7F]')),
+                      ],
                       controller: controller.addressController.value,
                       onTapOutside: (value) => FocusScope.of(context).unfocus(),
                       maxLines: 3,
@@ -87,6 +104,10 @@ class CompleteBiodataUpdate extends StatelessWidget {
                     ),
                     TextFormField(
                       keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.deny(
+                            RegExp(r'[^\x00-\x7F]')),
+                      ],
                       controller: controller.ageController.value,
                       onTapOutside: (value) => FocusScope.of(context).unfocus(),
                       maxLines: 3,
@@ -145,6 +166,10 @@ class CompleteBiodataUpdate extends StatelessWidget {
                     Obx(
                       () => controller.isCustomJob.value
                           ? TextFormField(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.deny(
+                                    RegExp(r'[^\x00-\x7F]')),
+                              ],
                               controller: controller.jobController.value,
                               onChanged: (newValue) {
                                 controller.selectedJob.value = newValue;
@@ -208,7 +233,7 @@ class CompleteBiodataUpdate extends StatelessWidget {
                       child: Text('Lokasi'),
                     ),
                     Obx(
-                          () => DropdownButtonFormField(
+                      () => DropdownButtonFormField(
                         dropdownColor: CustomColors.white,
                         items: controller.location
                             .map<DropdownMenuItem<String>>((String value) {

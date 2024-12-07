@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:medics/presentation/getx/auth/login_controller.dart';
@@ -25,6 +26,9 @@ class LoginForm extends StatelessWidget {
           children: [
             // Email
             TextFormField(
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(RegExp(r'[^\x00-\x7F]')),
+              ],
               keyboardType: TextInputType.emailAddress,
               onTapOutside: (value) => FocusScope.of(context).unfocus(),
               validator: (value) => CustomValidator.validateEmail(value),
@@ -37,6 +41,9 @@ class LoginForm extends StatelessWidget {
             ),
             // Password
             Obx(() => TextFormField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'[^\x00-\x7F]')),
+                  ],
                   keyboardType: TextInputType.text,
                   onTapOutside: (value) => FocusScope.of(context).unfocus(),
                   validator: (value) => CustomValidator.validatePassword(value),

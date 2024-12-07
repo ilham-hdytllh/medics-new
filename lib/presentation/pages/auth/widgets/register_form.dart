@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:medics/core/utils/validators/validation.dart';
@@ -22,6 +23,9 @@ class RegisterForm extends StatelessWidget {
           children: [
             // Nama
             TextFormField(
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(RegExp(r'[^\x00-\x7F]')),
+              ],
               keyboardType: TextInputType.text,
               onTapOutside: (value) => FocusScope.of(context).unfocus(),
               validator: (value) =>
@@ -35,6 +39,9 @@ class RegisterForm extends StatelessWidget {
             ),
             // Email
             TextFormField(
+              inputFormatters: [
+                FilteringTextInputFormatter.deny(RegExp(r'[^\x00-\x7F]')),
+              ],
               keyboardType: TextInputType.emailAddress,
               onTapOutside: (value) => FocusScope.of(context).unfocus(),
               validator: (value) => CustomValidator.validateEmail(value),
@@ -47,6 +54,9 @@ class RegisterForm extends StatelessWidget {
             ),
             // Password
             Obx(() => TextFormField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.deny(RegExp(r'[^\x00-\x7F]')),
+                  ],
                   keyboardType: TextInputType.text,
                   onTapOutside: (value) => FocusScope.of(context).unfocus(),
                   validator: (value) => CustomValidator.validatePassword(value),
