@@ -208,7 +208,7 @@ class AlarmHelper extends GetxController {
       assetAudioPath: 'assets/sounds/alarm.mp3',
       loopAudio: true,
       vibrate: false,
-      volume: 0.1,
+      volume: 0.2,
       fadeDuration: 3.0,
       warningNotificationOnKill: Platform.isIOS,
       androidFullScreenIntent: true,

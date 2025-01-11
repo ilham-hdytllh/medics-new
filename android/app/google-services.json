@@ -2,9 +2,61 @@
   "project_info": {
     "project_number": "928928943719",
     "project_id": "tbr-medics",
-    "storage_bucket": "tbr-medics.appspot.com"
+    "storage_bucket": "tbr-medics.firebasestorage.app"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928928943719:android:f22341ee86d19463404ec2",
+        "android_client_info": {
+          "package_name": "id.tbr.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928928943719-j2h04r1bem2o46sumc0fsej259jhpkos.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.tbr.application",
+            "certificate_hash": "437b38b3135b6dcf5c1af11e250273fca97e4d64"
+          }
+        },
+        {
+          "client_id": "928928943719-mdt058onlp2qopei61tb93a07nm2k3ic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.tbr.application",
+            "certificate_hash": "775fafbad29017ee07f042be2ea3c4e37390af88"
+          }
+        },
+        {
+          "client_id": "928928943719-gcm1pec3joj0m6c9omn6dagahhs61e3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuA3kieUU-jBVVS46XEdaw0YPoN6SSbiY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928928943719-gcm1pec3joj0m6c9omn6dagahhs61e3k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "928928943719-4up9ldt4g3i5ovbuar1os4rtnucbu1vl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.medics"
+              }
+            }
+          ]
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:928928943719:android:cd1cca6f9a89f7f0404ec2",
@@ -13,6 +65,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "928928943719-cp5iuivfsbjcgd0h4kv1ug8u3p98qjdn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.tbr.reminder",
+            "certificate_hash": "437b38b3135b6dcf5c1af11e250273fca97e4d64"
+          }
+        },
         {
           "client_id": "928928943719-d7dguso6g494a75gteo1f3er6eoru3jd.apps.googleusercontent.com",
           "client_type": 1,

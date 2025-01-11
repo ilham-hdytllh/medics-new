@@ -46,26 +46,26 @@ class DefaultFirebaseOptions {
     messagingSenderId: '928928943719',
     projectId: 'tbr-medics',
     authDomain: 'tbr-medics.firebaseapp.com',
-    storageBucket: 'tbr-medics.appspot.com',
+    storageBucket: 'tbr-medics.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBuA3kieUU-jBVVS46XEdaw0YPoN6SSbiY',
-    appId: '1:928928943719:android:cd1cca6f9a89f7f0404ec2',
+    appId: '1:928928943719:android:f22341ee86d19463404ec2',
     messagingSenderId: '928928943719',
     projectId: 'tbr-medics',
-    storageBucket: 'tbr-medics.appspot.com',
+    storageBucket: 'tbr-medics.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBKR9q4b2oo45BB5P1awNZazGzRw3P3zH4',
-    appId: '1:928928943719:ios:4255502524ab8004404ec2',
+    appId: '1:928928943719:ios:e0ad8493bd232445404ec2',
     messagingSenderId: '928928943719',
     projectId: 'tbr-medics',
-    storageBucket: 'tbr-medics.appspot.com',
+    storageBucket: 'tbr-medics.firebasestorage.app',
     androidClientId: '928928943719-240l1fooakp9mg5mkuhunu9au3kd5ef0.apps.googleusercontent.com',
-    iosClientId: '928928943719-v8dv1jrm4h2ba482jsev69jcaapcp409.apps.googleusercontent.com',
-    iosBundleId: 'id.tbr.reminder',
+    iosClientId: '928928943719-i09kf43bcfq1ifl1eq09qrbf08rtih1v.apps.googleusercontent.com',
+    iosBundleId: 'id.tbr.application',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(

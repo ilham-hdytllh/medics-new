@@ -1,4 +1,4 @@
-package id.tbr.reminder
+package id.tbr.application
 
 import io.flutter.embedding.android.FlutterActivity
 
