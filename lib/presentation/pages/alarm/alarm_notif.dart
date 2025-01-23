@@ -11,20 +11,26 @@ class AlarmNotif extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isAfter9AM = DateTime.now().hour >= 9;
+    // final bool isAfter9AM = DateTime.now().hour >= 9;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text("Alarm"),
         centerTitle: true,
-        backgroundColor: DateTime.now().hour >= 9 ? Colors.yellow : Colors.white, // Conditional AppBar background color
-        foregroundColor: DateTime.now().hour >= 9 ? Colors.black : Colors.black, // Adjust text/icon color if needed
+        backgroundColor: DateTime.now().hour >= 9
+            ? Colors.yellow
+            : Colors.white, // Conditional AppBar background color
+        foregroundColor: DateTime.now().hour >= 9
+            ? Colors.black
+            : Colors.black, // Adjust text/icon color if needed
       ),
       body: SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Container(
-          color: DateTime.now().hour >= 9 ? Colors.yellow : Colors.white, // Conditional background color
+          color: DateTime.now().hour >= 9
+              ? Colors.yellow
+              : Colors.white, // Conditional background color
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             child: Column(
@@ -84,28 +90,28 @@ class AlarmNotif extends StatelessWidget {
                           ),
                           child: controller.isLoading.value
                               ? Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 25,
-                                height: 25,
-                                child: CircularProgressIndicator(
-                                  color: CustomColors.white,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text(
-                                "Please wait..",
-                              ),
-                            ],
-                          )
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      width: 25,
+                                      height: 25,
+                                      child: CircularProgressIndicator(
+                                        color: CustomColors.white,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text(
+                                      "Please wait..",
+                                    ),
+                                  ],
+                                )
                               : Text(
-                            "Sudah",
-                          ),
+                                  "Sudah",
+                                ),
                         ),
                       ),
                     ),

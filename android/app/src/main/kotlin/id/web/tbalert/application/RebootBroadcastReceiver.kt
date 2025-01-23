@@ -1,4 +1,4 @@
-package id.tbr.reminder
+package id.web.tbalert.application
 
 import android.content.BroadcastReceiver
 import android.content.Context

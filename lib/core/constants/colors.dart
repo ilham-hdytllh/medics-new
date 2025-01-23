@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class CustomColors {
   // App theme colors
-  static const Color primary = Color(0xFF00695b);
-  static Color secondary = Color(0xFF00695b).withOpacity(0.2);
+  static const Color primary = Color(0xFF458EAF);
+  static Color secondary = Color(0xFF458EAF).withOpacity(0.2);
   static const Color accent = Color(0xFFb0c7ff);
 
   // Text colors
@@ -21,7 +21,7 @@ class CustomColors {
   static Color darkContainer = CustomColors.white.withOpacity(0.1);
 
   // Button colors
-  static const Color buttonPrimary = Color(0xFF4b68ff);
+  static const Color buttonPrimary = Color(0xFF458EAF);
   static const Color buttonSecondary = Color(0xFF6C757D);
   static const Color buttonDisabled = Color(0xFFC4C4C4);
 

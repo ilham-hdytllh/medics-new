@@ -1,6 +1,6 @@
 class CustomImages {
   // -- Logos
-  static const String logo = "assets/logos/logo.png";
+  static const String logo = "assets/logos/new-logo.png";
   static const String doctor = "assets/images/doctor.png";
   static const String google = "assets/logos/google.png";
 

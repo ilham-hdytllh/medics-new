@@ -1,4 +1,4 @@
-package id.tbr.application
+package id.web.tbalert.application
 
 import io.flutter.embedding.android.FlutterActivity
 

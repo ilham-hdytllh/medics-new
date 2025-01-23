@@ -6,8 +6,13 @@ import 'package:get/get.dart';
 import 'package:medics/core/constants/image_strings.dart';
 import 'package:medics/core/constants/sizes.dart';
 import 'package:medics/core/utils/extension/date.dart';
+import 'package:medics/core/utils/helpers/shared_preference.dart';
+import 'package:medics/data/repositories/authentication/authentication_repository.dart';
 import 'package:medics/presentation/getx/flyer/flyer_controller.dart';
 import 'package:medics/presentation/getx/news/news_controller.dart';
+import 'package:medics/presentation/getx/profile/profile_controller.dart';
+import 'package:medics/presentation/pages/home/header_drawer.dart';
+import 'package:medics/presentation/pages/profile/widgets/profile_list.dart';
 import 'package:medics/routes/navigation_route.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../core/constants/colors.dart';
@@ -21,15 +26,30 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        centerTitle: false,
-        titleSpacing: 0.0,
-        title: Image.asset(
-          CustomImages.logo,
-          height: 120,
-          fit: BoxFit.fitHeight,
+      endDrawerEnableOpenDragGesture: true,
+      drawer: Drawer(
+        child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: [
+                MyHeaderDrawer(),
+                _itemDrawer(),
+              ],
+            ),
+          ),
         ),
+      ),
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 3),
+            child: Image.asset(
+              CustomImages.logo,
+              height: 65,
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+        ],
       ),
       body: RefreshIndicator(
         backgroundColor: CustomColors.white,
@@ -47,111 +67,106 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 15,
-                      right: 15,
-                      bottom: CustomSizes.spaceBtwSections),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Tuberculosis\nReminder\nTB-R",
-                          style: Theme.of(context).textTheme.headlineMedium,
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Obx(() {
+                    if (flyerController.isLoading.value) {
+                      return CarouselSlider.builder(
+                        itemCount: 4,
+                        options: CarouselOptions(
+                          height: 160,
+                          aspectRatio: 16 / 8,
+                          viewportFraction: 0.8, // Show adjacent items
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          disableCenter: true,
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 3),
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 800),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                          onPageChanged: (index, onPageChanged) {},
+                          scrollDirection: Axis.horizontal,
                         ),
-                        Image.asset(
-                          CustomImages.doctor,
-                          height: 100,
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Obx(() {
-                  if (flyerController.isLoading.value) {
-                    return CarouselSlider.builder(
-                      itemCount: 4,
-                      options: CarouselOptions(
-                        height: 160,
-                        aspectRatio: 16 / 8,
-                        viewportFraction: 0.8, // Show adjacent items
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        disableCenter: true,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 3),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        onPageChanged: (index, onPageChanged) {},
-                        scrollDirection: Axis.horizontal,
-                      ),
-                      itemBuilder: (BuildContext context, int index,
-                              int pageViewIndex) =>
-                          Shimmer.fromColors(
-                        baseColor: CustomColors.errorBg,
-                        highlightColor: CustomColors.lightGrey,
-                        child: Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          decoration: BoxDecoration(
-                            color: CustomColors.white,
-                            borderRadius: BorderRadius.circular(20),
+                        itemBuilder: (BuildContext context, int index,
+                                int pageViewIndex) =>
+                            Shimmer.fromColors(
+                          baseColor: CustomColors.errorBg,
+                          highlightColor: CustomColors.lightGrey,
+                          child: Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            decoration: BoxDecoration(
+                              color: CustomColors.white,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  } else if (flyerController.flyers.isEmpty) {
-                    return SizedBox();
-                  } else {
-                    return CarouselSlider.builder(
-                      itemCount: flyerController.flyers.length,
-                      options: CarouselOptions(
-                        height: 180,
-                        aspectRatio: 16 / 9,
-                        viewportFraction: 0.8, // Show adjacent items
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        disableCenter: true,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 3),
-                        autoPlayAnimationDuration: Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeCenterPage: true,
-                        onPageChanged: (index, onPageChanged) {},
-                        scrollDirection: Axis.horizontal,
-                      ),
-                      itemBuilder: (BuildContext context, int index,
-                              int pageViewIndex) =>
-                          GestureDetector(
-                        onTap: () => Get.toNamed(AppLinks.DETAILFLYER,
-                            arguments: flyerController.flyers[index].url),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          decoration: BoxDecoration(
-                            color: CustomColors.white,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: AspectRatio(
-                                  aspectRatio: 16 / 9,
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        flyerController.flyers[index].image,
-                                    progressIndicatorBuilder:
-                                        (context, url, downloadProgress) =>
-                                            Shimmer.fromColors(
-                                      baseColor: CustomColors.errorBg,
-                                      highlightColor: CustomColors.lightGrey,
-                                      child: Container(
+                      );
+                    } else if (flyerController.flyers.isEmpty) {
+                      return SizedBox();
+                    } else {
+                      return CarouselSlider.builder(
+                        itemCount: flyerController.flyers.length,
+                        options: CarouselOptions(
+                          height: 180,
+                          aspectRatio: 16 / 9,
+                          viewportFraction: 0.8, // Show adjacent items
+                          initialPage: 0,
+                          enableInfiniteScroll: true,
+                          reverse: false,
+                          disableCenter: true,
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 3),
+                          autoPlayAnimationDuration:
+                              Duration(milliseconds: 800),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                          onPageChanged: (index, onPageChanged) {},
+                          scrollDirection: Axis.horizontal,
+                        ),
+                        itemBuilder: (BuildContext context, int index,
+                                int pageViewIndex) =>
+                            GestureDetector(
+                          onTap: () => Get.toNamed(AppLinks.DETAILFLYER,
+                              arguments: flyerController.flyers[index].url),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            decoration: BoxDecoration(
+                              color: CustomColors.white,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: AspectRatio(
+                                    aspectRatio: 16 / 9,
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          flyerController.flyers[index].image,
+                                      progressIndicatorBuilder:
+                                          (context, url, downloadProgress) =>
+                                              Shimmer.fromColors(
+                                        baseColor: CustomColors.errorBg,
+                                        highlightColor: CustomColors.lightGrey,
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          color: CustomColors.errorBg,
+                                          child: Center(
+                                            child: Icon(
+                                              IconlyLight.dangerCircle,
+                                              size: CustomSizes.iconMd,
+                                              color: CustomColors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Container(
                                         width: double.infinity,
                                         height: double.infinity,
                                         color: CustomColors.errorBg,
@@ -163,51 +178,40 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                         ),
                                       ),
+                                      fit: BoxFit.cover,
                                     ),
-                                    errorWidget: (context, url, error) =>
-                                        Container(
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      color: CustomColors.errorBg,
-                                      child: Center(
-                                        child: Icon(
-                                          IconlyLight.dangerCircle,
-                                          size: CustomSizes.iconMd,
-                                          color: CustomColors.black,
-                                        ),
-                                      ),
-                                    ),
-                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: Container(
-                                  padding:
-                                      EdgeInsets.only(bottom: 30, left: 10),
-                                  alignment: Alignment.centerLeft,
-                                  height:
-                                      80, // Set the height to be the same for all items
-                                  decoration: BoxDecoration(
-                                    color: CustomColors.white.withOpacity(0.6),
-                                  ),
-                                  child: Text(
-                                    flyerController.flyers[index].title,
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
+                                Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.only(bottom: 30, left: 10),
+                                    alignment: Alignment.centerLeft,
+                                    height:
+                                        80, // Set the height to be the same for all items
+                                    decoration: BoxDecoration(
+                                      color:
+                                          CustomColors.white.withOpacity(0.6),
+                                    ),
+                                    child: Text(
+                                      flyerController.flyers[index].title,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  }
-                }),
+                      );
+                    }
+                  }),
+                ),
                 SizedBox(
                   height: CustomSizes.spaceBtwItems,
                 ),
@@ -541,7 +545,7 @@ class HomeScreen extends StatelessWidget {
                                         padding: EdgeInsets.only(
                                             bottom: 10, left: 10),
                                         alignment: Alignment.centerLeft,
-                                        height: 60,
+                                        height: 70,
                                         decoration: BoxDecoration(
                                           color: CustomColors.white
                                               .withOpacity(0.6),
@@ -555,6 +559,8 @@ class HomeScreen extends StatelessWidget {
                                           children: [
                                             Text(
                                               newsController.news[index].title,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleLarge,
@@ -578,4 +584,98 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _itemDrawer() {
+  final controller = Get.put(ProfileController());
+  return Container(
+    height: 550,
+    width: double.infinity,
+    decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30), topRight: Radius.circular(30))),
+    child: Column(children: [
+      SizedBox(
+        height: 50,
+      ),
+      GestureDetector(
+        onTap: () => Get.toNamed(AppLinks.UPDATEPROFILE,
+            arguments: controller.userProfile.value),
+        child: ProfileList(
+          icon: IconlyBold.profile,
+          title: "Profile",
+          color: Colors.black87,
+        ),
+      ),
+      const Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 5,
+        ),
+        child: Divider(),
+      ),
+      GestureDetector(
+        onTap: () => Get.toNamed(AppLinks.COMPLETEBIODATA),
+        child: ProfileList(
+          icon: IconlyBold.profile,
+          title: "Biodata",
+          color: Colors.black87,
+        ),
+      ),
+      controller.logGoogle == 0
+          ? const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 5,
+              ),
+              child: Divider(),
+            )
+          : SizedBox(),
+      controller.logGoogle == 0
+          ? GestureDetector(
+              onTap: () => Get.toNamed(AppLinks.UPDATEPASSWORD),
+              child: ProfileList(
+                icon: IconlyBold.lock,
+                title: "Password",
+                color: Colors.black87,
+              ),
+            )
+          : SizedBox(),
+      const Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 5,
+        ),
+        child: Divider(),
+      ),
+      GestureDetector(
+        onTap: () => Get.toNamed(AppLinks.ALARM),
+        child: ProfileList(
+          icon: IconlyBold.timeCircle,
+          title: "Alarm",
+          color: Colors.black87,
+        ),
+      ),
+      const Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 5,
+        ),
+        child: Divider(),
+      ),
+      GestureDetector(
+        onTap: () async {
+          String? token = await SharedPreferencesHelper.getToken();
+
+          await AuthenticationRepository.instance.logout(token);
+        },
+        child: ProfileList(
+          icon: IconlyBold.logout,
+          title: "Keluar",
+          color: Colors.black87,
+        ),
+      ),
+    ]),
+  );
 }
